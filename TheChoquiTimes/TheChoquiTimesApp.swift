@@ -11,7 +11,7 @@ import SwiftUI
 struct TheChoquiTimesApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+
         }
     }
 }
