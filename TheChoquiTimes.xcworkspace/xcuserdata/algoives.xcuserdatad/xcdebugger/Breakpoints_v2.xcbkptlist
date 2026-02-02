@@ -13,15 +13,6 @@
             continueAfterRunningActions = "No"
             symbolName = "*0x1007f3ce4">
             <Locations>
-               <Location
-                  uuid = "080CE613-14FA-4B18-9179-9462E7193D08 - dbb30d75b3b52e13"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "lldb_image_notifier"
-                  moduleName = "dyld"
-                  usesParentBreakpointCondition = "Yes">
-               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>

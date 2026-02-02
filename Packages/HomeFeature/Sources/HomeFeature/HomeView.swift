@@ -8,14 +8,20 @@
 import SwiftUI
 
 public struct HomeView: View {
+
+    @State private var selectedSection: HomeSection = .today
+
     public init(){
 
     }
     public var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
+        VStack(spacing: 0) {
+            SectionTabsView(selected: $selectedSection)
+            ScrollView {
+
                 HomeFeedView(items: MockHomeFeed.items)
             }
+
         }
     }
 }

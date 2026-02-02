@@ -17,41 +17,36 @@ struct HomeTabView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 16) {
-                    container.makeHomeRoot()
-                        .frame(maxWidth: .infinity, minHeight: 800)
-                }
+            container.makeHomeRoot()
                 .padding(.horizontal, 16)
                 .padding(.top, 12)
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(.hidden, for: .navigationBar)
-            .safeAreaInset(edge: .top, spacing: 0) {
-                VStack(spacing: 0) {
-                    ZStack {
-                        Image("mastHeadTitle")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 34)
-                            .padding(.vertical, 10)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar(.hidden, for: .navigationBar)
+                .safeAreaInset(edge: .top, spacing: 0) {
+                    VStack(spacing: 0) {
+                        ZStack {
+                            Image("mastHeadTitle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 34)
+                                .padding(.vertical, 10)
 
-                        HStack(spacing: 10) {
-                            Spacer()
-                            Button {} label: {
-                                Image(systemName: "magnifyingglass")
-                                    .font(.system(size: 18, weight: .semibold))
-                                    .foregroundStyle(.black)
-                                    .foregroundStyle(.primary)
-                                    .frame(width: 44, height: 44)
+                            HStack(spacing: 10) {
+                                Spacer()
+                                Button {} label: {
+                                    Image(systemName: "magnifyingglass")
+                                        .font(.system(size: 18, weight: .semibold))
+                                        .foregroundStyle(.black)
+                                        .foregroundStyle(.primary)
+                                        .frame(width: 44, height: 44)
+                                }
+                                .padding(.trailing, 8)
                             }
-                            .padding(.trailing, 8)
                         }
+                        Divider()
                     }
-                    Divider()
+                    .background(.background)
                 }
-                .background(.background)
-            }
         }
     }
 }
