@@ -37,6 +37,13 @@ struct HomeFeedCell: View {
 }
 
 #Preview {
-    let item = HomeFeedItem(id: UUID(), title: "Mock Title", subtitle: "MockSubtilte")
+    let item = HomeFeedItem(
+        id: "123",
+        section: .today,
+        title: "Title",
+        subtitle: "Subtitle",
+        byLine: nil,
+        timeStamptText: nil
+    )
     HomeFeedCell(item: item)
 }

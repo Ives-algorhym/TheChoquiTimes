@@ -8,27 +8,28 @@
 import Foundation
 
 struct HomeFeedItem: Identifiable {
-    let id: UUID
+    let id: String
+    let section: HomeSection
     let title: String
     let subtitle: String?
+    let byLine: String?
+    let timeStamptText: String?
+
+    init(
+        id: String,
+        section: HomeSection,
+        title: String,
+        subtitle: String?,
+        byLine: String?,
+        timeStamptText: String?
+    ) {
+        self.id = id
+        self.section = section
+        self.title = title
+        self.subtitle = subtitle
+        self.byLine = byLine
+        self.timeStamptText = timeStamptText
+    }
 }
 
-enum MockHomeFeed {
-    static let items: [HomeFeedItem] = [
-        HomeFeedItem(
-            id: UUID(),
-            title: "Breaking: Major Story of the Day",
-            subtitle: "Here is a short summary of the top story."
-        ),
-        HomeFeedItem(
-            id: UUID(),
-            title: "Opinion: Why Architecture Matters",
-            subtitle: "A deep dive into modular app design."
-        ),
-        HomeFeedItem(
-            id: UUID(),
-            title: "Lifestyle: Design Your Morning Routine",
-            subtitle: nil
-        )
-    ]
-}
+

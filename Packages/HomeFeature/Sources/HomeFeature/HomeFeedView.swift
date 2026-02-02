@@ -23,6 +23,6 @@ struct HomeFeedView: View {
 }
 
 #Preview {
-    let items = MockHomeFeed.items
+    let items = MockHomeFeed.allItems(for: .today)
     HomeFeedView(items: items)
 }
