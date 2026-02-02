@@ -12,7 +12,11 @@ public struct HomeView: View {
 
     }
     public var body: some View {
-        Text("Home view")
+        ScrollView {
+            VStack(spacing: 0) {
+                HomeFeedView(items: MockHomeFeed.items)
+            }
+        }
     }
 }
 
