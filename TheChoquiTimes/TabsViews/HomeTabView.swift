@@ -8,11 +8,18 @@
 import SwiftUI
 
 struct HomeTabView: View {
+
+    let container: AppContainer
+
+    init(container: AppContainer) {
+        self.container = container
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
-                    Text("Home View")
+                    container.makeHomeRoot()
                         .frame(maxWidth: .infinity, minHeight: 800)
                 }
                 .padding(.horizontal, 16)
@@ -50,5 +57,5 @@ struct HomeTabView: View {
 }
 
 #Preview {
-    HomeTabView()
+    HomeTabView(container: AppContainer(enviroment: .live))
 }

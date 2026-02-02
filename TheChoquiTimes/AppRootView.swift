@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct AppRootView: View {
+
+    private let container = AppContainer(enviroment: .live)
     var body: some View {
         TabView {
-            HomeTabView()
+            HomeTabView(container: container)
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
