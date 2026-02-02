@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		45A7165C2F30245200F09726 /* HomeFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 45A7165B2F30245200F09726 /* HomeFeature */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		45A715FC2F2FF5FA00F09726 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45A7165C2F30245200F09726 /* HomeFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = TheChoquiTimes;
 			packageProductDependencies = (
+				45A7165B2F30245200F09726 /* HomeFeature */,
 			);
 			productName = TheChoquiTimes;
 			productReference = 45A715EB2F2FF5F800F09726 /* TheChoquiTimes.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = 45A715E22F2FF5F700F09726;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				45A7165A2F30245200F09726 /* XCLocalSwiftPackageReference "Packages/HomeFeature" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 45A715EC2F2FF5F800F09726 /* Products */;
 			projectDirPath = "";
@@ -558,6 +567,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		45A7165A2F30245200F09726 /* XCLocalSwiftPackageReference "Packages/HomeFeature" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/HomeFeature;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		45A7165B2F30245200F09726 /* HomeFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HomeFeature;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 45A715E32F2FF5F700F09726 /* Project object */;
 }
