@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AppRootView: View {
 
-    private let container = AppContainer(enviroment: .live)
+    private let container = AppContainer(enviroment: .prod)
     var body: some View {
         TabView {
             HomeTabView(container: container)

@@ -8,5 +8,6 @@
 import Foundation
 
 struct AppEnviroment {
-    static let live = AppEnviroment()
+    static let prod = AppEnviroment()
+    static let dev = AppEnviroment()
 }

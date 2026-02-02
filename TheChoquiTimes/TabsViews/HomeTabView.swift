@@ -57,5 +57,5 @@ struct HomeTabView: View {
 }
 
 #Preview {
-    HomeTabView(container: AppContainer(enviroment: .live))
+    HomeTabView(container: AppContainer(enviroment: .prod))
 }
