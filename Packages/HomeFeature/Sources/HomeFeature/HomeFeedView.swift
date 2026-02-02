@@ -16,7 +16,13 @@ struct HomeFeedView: View {
     var body: some View {
         VStack(spacing: 12) {
             ForEach(items) { item in
-                HomeFeedCell(item: item)
+                TextStoryCell(
+                    title: item.title,
+                    subtitle: item.subtitle,
+                    readTimeText: nil,
+                    showAccessory: false
+                )
+                Divider()
             }
         }
     }
