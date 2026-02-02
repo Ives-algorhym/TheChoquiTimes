@@ -59,6 +59,7 @@ enum MockHomeFeed {
             return HomeFeedItem(
                 id: "\(section.id)-\(index)",                 // ✅ stable
                 section: section,
+                itemKind: .text,
                 title: "\(t.title) #\(index + 1)",            // number to make scroll feel real
                 subtitle: t.subtitle,
                 byLine: bylines[index % bylines.count],

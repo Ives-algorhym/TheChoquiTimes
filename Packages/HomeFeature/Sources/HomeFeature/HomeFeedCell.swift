@@ -40,6 +40,7 @@ struct HomeFeedCell: View {
     let item = HomeFeedItem(
         id: "123",
         section: .today,
+        itemKind: .text,
         title: "Title",
         subtitle: "Subtitle",
         byLine: nil,
