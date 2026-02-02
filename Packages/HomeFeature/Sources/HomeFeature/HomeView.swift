@@ -19,7 +19,9 @@ public struct HomeView: View {
             SectionTabsView(selected: $selectedSection)
             ScrollView {
 
-                HomeFeedView(items: MockHomeFeed.allItems(for: .today))
+                HomeFeedView(
+                    items: MockHomeFeed.allItems(for: selectedSection)
+                )
             }
 
         }
