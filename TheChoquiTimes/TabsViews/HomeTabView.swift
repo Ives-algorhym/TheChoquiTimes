@@ -34,6 +34,7 @@ struct HomeTabView: View {
                             Button {} label: {
                                 Image(systemName: "magnifyingglass")
                                     .font(.system(size: 18, weight: .semibold))
+                                    .foregroundStyle(.black)
                                     .foregroundStyle(.primary)
                                     .frame(width: 44, height: 44)
                             }
