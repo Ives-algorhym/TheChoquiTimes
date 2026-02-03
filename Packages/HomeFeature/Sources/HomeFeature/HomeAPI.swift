@@ -17,6 +17,18 @@ public protocol HomeFeedCaching: Sendable {
     func save(_ feed: HomeFeed, section: HomeSection) async throws
 }
 
+/// Concurrency-safe flag used to deterministically simulate offline/online behavior in dev/previews.
+actor OfflineSimulationState {
+    private var isOffline: Bool
+
+    init(isOffline: Bool) {
+        self.isOffline = isOffline
+    }
+
+    func get() -> Bool { isOffline }
+    func set(_ value: Bool) { isOffline = value }
+}
+
 public struct HomeDependencies {
     public let fetcher: HomeFeedFetching
     public let cache: HomeFeedCaching
@@ -91,7 +103,7 @@ final class LoadHomeFeedUseCase: @preconcurrency HomeFeedingUseCase {
         }
     }
 
-    func loadStream(section: HomeSection) async -> AsyncStream<HomeFeedLoadOutcome> {
+    func loadStream(section: HomeSection)  -> AsyncStream<HomeFeedLoadOutcome> {
         AsyncStream { continuation in
             Task {
                 var cached: HomeFeed?
@@ -110,7 +122,7 @@ final class LoadHomeFeedUseCase: @preconcurrency HomeFeedingUseCase {
                     let fresh = try await fetcher.fetch(section: section)
                     try? await cache.save(fresh, section: section)
                     continuation
-                        .yield(.showing(homefeed: fresh, isOffline: true))
+                        .yield(.showing(homefeed: fresh, isOffline: false))
                 } catch {
                     if let cached {
                         continuation
@@ -127,7 +139,7 @@ final class LoadHomeFeedUseCase: @preconcurrency HomeFeedingUseCase {
 
 protocol HomeFeedingUseCase: Sendable {
     func load(section: HomeSection) async -> HomeFeedLoadOutcome
-    func loadStream(section: HomeSection) async -> AsyncStream<HomeFeedLoadOutcome>
+    func loadStream(section: HomeSection) -> AsyncStream<HomeFeedLoadOutcome>
     func hasCached(section: HomeSection) async -> Bool
 
 }
@@ -159,14 +171,43 @@ class NetworkStatusProvider: NetworkStatusProviding {
 
 }
 
-public final class FakeHomeFeedFetcher: HomeFeedFetching {
-    public init() {
+/// Deterministic network simulation for dev/previews/tests.
+/// remainingSuccesses = 1 => first request succeeds, then all subsequent requests fail.
+public actor FakeNetworkScript {
+    private var remainingSuccesses: Int
 
+    public init(remainingSuccesses: Int) {
+        self.remainingSuccesses = remainingSuccesses
+    }
+
+    public func shouldFailNow() -> Bool {
+        if remainingSuccesses > 0 {
+            remainingSuccesses -= 1
+            return false
+        }
+        return true
+    }
+}
+
+public final class FakeHomeFeedFetcher: HomeFeedFetching {
+
+    private let script: FakeNetworkScript
+
+    /// Default: succeed once (populate cache), then fail (simulate offline).
+    public init(script: FakeNetworkScript = FakeNetworkScript(remainingSuccesses: 1)) {
+        self.script = script
     }
 
     public func fetch(section: HomeSection) async throws -> HomeFeed {
+        // Simulate network latency (supports cancellation).
         try await Task.sleep(nanoseconds: 300_000_000)
-        return await .init(
+
+        // Deterministic offline behavior.
+        if await script.shouldFailNow() {
+            throw URLError(.notConnectedToInternet)
+        }
+
+        return .init(
             items: MockHomeFeed.allItems(for: section),
             lastUpdated: .now
         )

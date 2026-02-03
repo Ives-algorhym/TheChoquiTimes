@@ -19,6 +19,7 @@ public struct HomeView: View {
     public var body: some View {
         VStack(spacing: 0) {
             SectionTabsView(selected: $selectedSection)
+            OfflineBannerView(state: viewModel.bannerState)
             content
         }
         .task(id: selectedSection ) {
@@ -100,7 +101,7 @@ final class HomeViewModel: ObservableObject {
         if !hasCache {
             viewState = .loading
         }
-        for await outcome in await useCase.loadStream(section: section) {
+        for await outcome in  useCase.loadStream(section: section) {
             switch outcome {
             case .showing(let feed, let isOffline):
                 viewState = .content(feed)
@@ -125,3 +126,34 @@ final class HomeViewModel: ObservableObject {
     }
 }
 
+private struct OfflineBannerView: View {
+    let state: HomeViewModel.BannerState
+
+    var body: some View {
+        Group {
+            if state.isVisible {
+                VStack(spacing: 4) {
+                    Text("Your device is offline.")
+                        .font(.system(size: 15, weight: .semibold))
+
+                    if let lastUpdateText = state.lastUpdateText {
+                        Text(lastUpdateText)
+                            .font(.system(size: 15, weight: .semibold))
+                    }
+                }
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 10)
+                .padding(.horizontal, 16)
+                .background(Color.black.opacity(0.85))
+                .overlay(
+                    Rectangle()
+                        .fill(Color.black.opacity(0.9))
+                        .frame(height: 1),
+                    alignment: .bottom
+                )
+            }
+        }
+        .animation(.easeInOut(duration: 0.2), value: state.isVisible)
+    }
+}

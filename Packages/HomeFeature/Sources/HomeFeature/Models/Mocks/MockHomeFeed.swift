@@ -13,7 +13,7 @@ enum MockHomeFeed {
     static let defaultTotalPerSection = 60
 
     // Headlines + subtitles per section (reused with rotation)
-    @MainActor private static let templates: [HomeSection: [(title: String, subtitle: String?)]] = [
+     private static let templates: [HomeSection: [(title: String, subtitle: String?)]] = [
         .today: [
             ("Markets Open Higher After Fresh Data", "Investors weigh rates and earnings."),
             ("Storm System Brings Heavy Rain to the Coast", "Flooding possible in low-lying areas."),
@@ -50,7 +50,7 @@ enum MockHomeFeed {
     ]
 
     /// Full set for a section (good for “infinite scroll” simulation)
-    @MainActor static func allItems(for section: HomeSection,
+     static func allItems(for section: HomeSection,
                          total: Int = defaultTotalPerSection) -> [HomeFeedItem] {
         let base = templates[section] ?? [("Story", nil)]
 

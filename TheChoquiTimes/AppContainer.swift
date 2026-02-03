@@ -18,7 +18,7 @@ struct AppContainer {
 
     @MainActor func makeHomeRoot() -> AnyView {
         let homeDependencies = HomeDependencies(
-            fetcher: FakeHomeFeedFetcher(),
+            fetcher: FakeHomeFeedFetcher(script: .init(remainingSuccesses: 8)),
             cache: FakeHomeCatch()
         )
 
