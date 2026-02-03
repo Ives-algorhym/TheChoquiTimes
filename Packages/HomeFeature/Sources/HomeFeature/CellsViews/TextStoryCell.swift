@@ -52,8 +52,11 @@ struct TextStoryCell: View {
 
 
         }
-        .padding()
-        .background(RoundedRectangle(cornerRadius: 12).fill(.background))
+
+
+        .padding(.horizontal, 16)
+        .padding(.vertical, 18)
+        .contentShape(Rectangle())
     }
 }
 
