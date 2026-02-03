@@ -16,7 +16,12 @@ struct AppContainer {
         self.enviroment = enviroment
     }
 
-    func makeHomeRoot() -> AnyView {
-        AnyView(HomeView())
+    @MainActor func makeHomeRoot() -> AnyView {
+        let homeDependencies = HomeDependencies(
+            fetcher: FakeHomeFeedFetcher(),
+            cache: FakeHomeCatch()
+        )
+
+        return AnyView(makeHomeView(dependencies: homeDependencies) )
     }
 }

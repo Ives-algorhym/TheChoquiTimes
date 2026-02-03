@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum HomeSection: String, CaseIterable, Identifiable {
+public enum HomeSection: String, CaseIterable, Identifiable, Codable {
     case forYou = "For you"
     case today = "Today"
     case opinion = "Opinion"
@@ -16,6 +16,8 @@ enum HomeSection: String, CaseIterable, Identifiable {
     case sports = "Sports"
     case tech = "Technology"
 
-    var id: String { rawValue }
-    var title: String { rawValue }
+    public var id: String { rawValue }
+    public var title: String { rawValue }
 }
+
+extension HomeSection: Sendable {}

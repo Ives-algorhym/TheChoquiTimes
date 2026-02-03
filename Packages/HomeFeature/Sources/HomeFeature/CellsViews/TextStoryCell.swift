@@ -53,7 +53,6 @@ struct TextStoryCell: View {
 
         }
 
-
         .padding(.horizontal, 16)
         .padding(.vertical, 18)
         .contentShape(Rectangle())

@@ -40,11 +40,11 @@ struct HomeFeedCell: View {
     let item = HomeFeedItem(
         id: "123",
         section: .today,
-        itemKind: .text,
+        kind: .text,
         title: "Title",
         subtitle: "Subtitle",
-        byLine: nil,
-        timeStamptText: nil
+        byline: nil,
+        timestampText: nil
     )
     HomeFeedCell(item: item)
 }

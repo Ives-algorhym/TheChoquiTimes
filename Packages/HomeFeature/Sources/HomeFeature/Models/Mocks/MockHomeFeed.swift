@@ -13,7 +13,7 @@ enum MockHomeFeed {
     static let defaultTotalPerSection = 60
 
     // Headlines + subtitles per section (reused with rotation)
-    private static let templates: [HomeSection: [(title: String, subtitle: String?)]] = [
+    @MainActor private static let templates: [HomeSection: [(title: String, subtitle: String?)]] = [
         .today: [
             ("Markets Open Higher After Fresh Data", "Investors weigh rates and earnings."),
             ("Storm System Brings Heavy Rain to the Coast", "Flooding possible in low-lying areas."),
@@ -50,7 +50,7 @@ enum MockHomeFeed {
     ]
 
     /// Full set for a section (good for “infinite scroll” simulation)
-    static func allItems(for section: HomeSection,
+    @MainActor static func allItems(for section: HomeSection,
                          total: Int = defaultTotalPerSection) -> [HomeFeedItem] {
         let base = templates[section] ?? [("Story", nil)]
 
@@ -59,11 +59,11 @@ enum MockHomeFeed {
             return HomeFeedItem(
                 id: "\(section.id)-\(index)",                 // ✅ stable
                 section: section,
-                itemKind: .text,
+                kind: .text,
                 title: "\(t.title) #\(index + 1)",            // number to make scroll feel real
                 subtitle: t.subtitle,
-                byLine: bylines[index % bylines.count],
-                timeStamptText: timeLabels[index % timeLabels.count]
+                byline: bylines[index % bylines.count],
+                timestampText: timeLabels[index % timeLabels.count]
             )
         }
     }
