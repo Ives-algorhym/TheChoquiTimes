@@ -216,18 +216,41 @@ public final class FakeHomeFeedFetcher: HomeFeedFetching {
 
 public actor FakeHomeCatch: HomeFeedCaching {
 
-    private var storage: [String : HomeFeed] = [:]
+    private var storage: [String: HomeFeed] = [:]
 
-    public init() {
+    // ✅ Eviction policy (simple + interview-friendly)
+    private let maxAge: TimeInterval = 60       // 1 hour
+    private let maxEntries: Int = 10                // keep at most 10 sections
 
+    private func pruneExpired(now: Date = .now) {
+        storage = storage.filter { (_, feed) in
+            now.timeIntervalSince(feed.lastUpdated) <= maxAge
+        }
     }
 
+    private func pruneToMaxEntries() {
+        guard storage.count > maxEntries else { return }
+
+        // Evict oldest feeds by lastUpdated until within limit.
+        let sortedOldestFirst = storage.sorted { $0.value.lastUpdated < $1.value.lastUpdated }
+        let overflow = storage.count - maxEntries
+
+        for i in 0..<overflow {
+            storage.removeValue(forKey: sortedOldestFirst[i].key)
+        }
+    }
+
+    public init() {}
+
     public func load(section: HomeSection) async throws -> HomeFeed? {
-        storage[section.id]
+        pruneExpired()
+        return storage[section.id]
     }
 
     public func save(_ feed: HomeFeed, section: HomeSection) async throws {
+        pruneExpired()
         storage[section.id] = feed
+        pruneToMaxEntries()
     }
 }
 

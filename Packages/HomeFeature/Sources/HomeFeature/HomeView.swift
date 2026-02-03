@@ -44,7 +44,12 @@ public struct HomeView: View {
 
             }
         case .offlineEmpty:
-            Text("Empty state")
+            VStack {
+                Text("Empty state")
+                Spacer()
+            }
+            .padding()
+
         case .error(let string):
             Text("Error")
         }
