@@ -29,7 +29,6 @@ final class HomeViewModel: ObservableObject {
     )
 
     private let useCase: any HomeFeedingUseCase & Sendable
-    private let network: NetworkStatusProviding
 
     /// MARK: Cancelation state
     /// The current state load owned by the screen/vm.
@@ -38,24 +37,8 @@ final class HomeViewModel: ObservableObject {
 
     private var currentSection: HomeSection?
 
-    init(useCase: HomeFeedingUseCase, network: NetworkStatusProviding) {
+    init(useCase: HomeFeedingUseCase) {
         self.useCase = useCase
-        self.network = network
-    }
-
-    // MARK: - Public API (preferred enntry point)
-    /// Call this from sync context (e.g Button actions) or when you want the vm
-    /// to own the cancelation.
-    /// - Cancel any in-flight load  and start a new one (latest intent wins)
-    func startLoad(section: HomeSection) {
-        cancelLoad()
-
-        currentSection = section
-
-        loadTask = Task { [weak self] in
-            guard let self else { return }
-            await self.load(section: section)
-        }
     }
 
     func  cancelLoad() {
@@ -111,6 +94,19 @@ final class HomeViewModel: ObservableObject {
         }
 
     }
+
+    func refresh(section: HomeSection) async {
+        cancelLoad()
+
+        let task = Task { [weak self] in
+            guard let self else { return }
+            await self.load(section: section)
+        }
+
+        loadTask = task
+        await task.value
+    }
+
 
     private func format(_ date: Date) -> String {
         let df = DateFormatter()

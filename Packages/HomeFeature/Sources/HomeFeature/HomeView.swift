@@ -21,9 +21,16 @@ public struct HomeView: View {
             SectionTabsView(selected: $selectedSection)
             OfflineBannerView(state: viewModel.bannerState)
             content
+                .refreshable {
+                    await viewModel.refresh(section: selectedSection)
+                }
         }
         .task(id: selectedSection ) {
+            viewModel.cancelLoad()
             await viewModel.load(section: selectedSection)
+        }
+        .onDisappear{
+            viewModel.cancelLoad()
         }
     }
 
@@ -62,8 +69,7 @@ public struct HomeView: View {
             useCase: LoadHomeFeedUseCase(
                 fetcher: FakeHomeFeedFetcher(),
                 cache: FakeHomeCatch()
-            ),
-            network: NetworkStatusProvider()
+            )
         )
     )
 }

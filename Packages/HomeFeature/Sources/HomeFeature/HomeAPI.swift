@@ -46,8 +46,7 @@ public struct HomeDependencies {
     )
 
     let viewModel = HomeViewModel(
-        useCase: useCase,
-        network: NetworkStatusProvider()
+        useCase: useCase
     )
 
     return HomeView(viewModel: viewModel)
