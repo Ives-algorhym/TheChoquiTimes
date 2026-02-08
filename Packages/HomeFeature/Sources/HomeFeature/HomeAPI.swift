@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Core
 
 public protocol HomeFeedFetching: Sendable {
     func fetch(section: HomeSection) async throws -> HomeFeed
