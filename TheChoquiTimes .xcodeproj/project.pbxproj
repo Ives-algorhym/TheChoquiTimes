@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		454872FE2F3825AB007E7ED2 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 454872FD2F3825AB007E7ED2 /* Core */; };
 		45A7165C2F30245200F09726 /* HomeFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 45A7165B2F30245200F09726 /* HomeFeature */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45A7165C2F30245200F09726 /* HomeFeature in Frameworks */,
+				454872FE2F3825AB007E7ED2 /* Core in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,12 +79,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		454872FC2F3825AB007E7ED2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		45A715E22F2FF5F700F09726 = {
 			isa = PBXGroup;
 			children = (
 				45A715ED2F2FF5F800F09726 /* TheChoquiTimes */,
 				45A715FE2F2FF5FA00F09726 /* TheChoquiTimesTests */,
 				45A716082F2FF5FA00F09726 /* TheChoquiTimesUITests */,
+				454872FC2F3825AB007E7ED2 /* Frameworks */,
 				45A715EC2F2FF5F800F09726 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,6 +128,7 @@
 			name = TheChoquiTimes;
 			packageProductDependencies = (
 				45A7165B2F30245200F09726 /* HomeFeature */,
+				454872FD2F3825AB007E7ED2 /* Core */,
 			);
 			productName = TheChoquiTimes;
 			productReference = 45A715EB2F2FF5F800F09726 /* TheChoquiTimes.app */;
@@ -581,6 +592,11 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		454872FD2F3825AB007E7ED2 /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 454872FB2F382481007E7ED2 /* XCLocalSwiftPackageReference "Packages/Core" */;
+			productName = Core;
+		};
 		45A7165B2F30245200F09726 /* HomeFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HomeFeature;
